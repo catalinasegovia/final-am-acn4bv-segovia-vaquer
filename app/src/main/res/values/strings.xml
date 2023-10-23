@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Juego cartas</string>
+    <string name="title_activity_juego1">JuegoActivity1</string>
 </resources>
