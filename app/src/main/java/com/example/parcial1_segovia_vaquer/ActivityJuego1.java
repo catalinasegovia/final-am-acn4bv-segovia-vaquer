@@ -18,8 +18,8 @@ public class ActivityJuego1 extends AppCompatActivity  {
 
 
 
-    Button btn= (Button)findViewById(R.id.btn_carta);
-   btn.setOnClickListener( new View.OnClickListener() {
+    Button btn_tirar= (Button)findViewById(R.id.btn_carta);
+   btn_tirar.setOnClickListener( new View.OnClickListener() {
 
         public void onClick(View view) {
         Intent intent = new Intent ( getApplicationContext(), ActivityJuego2.class);
