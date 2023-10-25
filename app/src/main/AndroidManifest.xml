@@ -12,16 +12,18 @@
         android:theme="@style/Theme.JuegoCartas"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityJuego4"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityJuego3"
+            android:exported="false" />
+        <activity
             android:name=".ActivityJuego2"
             android:exported="false" />
         <activity
             android:name=".ActivityJuego1"
             android:exported="false" />
-        <activity
-            android:name=".JuegoActivity1"
-            android:exported="false"
-            android:label="@string/title_activity_juego1"
-            android:theme="@style/Theme.JuegoCartas" />
+
         <activity
             android:name=".Activity2"
             android:exported="false" />
