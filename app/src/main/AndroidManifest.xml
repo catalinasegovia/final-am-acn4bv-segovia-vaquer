@@ -22,6 +22,12 @@
             android:label="@string/title_activity_2"
             android:theme="@style/Theme.JuegoCartas" />
         <activity
+            android:name=".ActivityJuego4"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityJuego3"
+            android:exported="false" />
+        <activity
             android:name=".ActivityJuego2"
             android:exported="false" />
         <activity
