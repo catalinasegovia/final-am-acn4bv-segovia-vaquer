@@ -17,9 +17,9 @@ public class ActivityJuego2 extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego2);
 
-        int pc1 = getIntent().getIntExtra("", -1);
-        int idCarta1= getIntent().getIntExtra("", -1);
-        int valorCarta1=getIntent().getIntExtra("", -1);
+        int pc1 = getIntent().getIntExtra("id", -1);
+        int idCarta1= getIntent().getIntExtra("imagen", -1);
+        int valorCarta1=getIntent().getIntExtra("valor", -1);
 
         if (pc1 != -1 && idCarta1 != -1 && valorCarta1 != -1){
 
@@ -39,9 +39,9 @@ public class ActivityJuego2 extends AppCompatActivity  {
                 int valorCarta2=valorI[pc2];
 
                 Intent intent2 = new Intent ( getApplicationContext(), ActivityJuego3.class);
-                intent2.putExtra("posicion", pc2);
-                intent2.putExtra("id imagen", idCarta2);
-                intent2.putExtra("valor carta", valorCarta2);
+                intent2.putExtra("id", pc2);
+                intent2.putExtra(" imagen", idCarta2);
+                intent2.putExtra("valor ", valorCarta2);
 
                 startActivity(intent2);
 

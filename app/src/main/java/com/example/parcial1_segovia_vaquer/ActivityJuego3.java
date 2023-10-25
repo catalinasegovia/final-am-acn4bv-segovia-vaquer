@@ -20,9 +20,9 @@ public class ActivityJuego3 extends AppCompatActivity {
 
 
 
-        int pc2 = getIntent().getIntExtra("", -1);
-        int idCarta2= getIntent().getIntExtra("", -1);
-        int valorCarta2=getIntent().getIntExtra("", -1);
+        int pc2 = getIntent().getIntExtra("id", -1);
+        int idCarta2= getIntent().getIntExtra("imagen", -1);
+        int valorCarta2=getIntent().getIntExtra("valor", -1);
 
         if (pc2 != -1 && idCarta2 != -1 && valorCarta2 != -1){
 

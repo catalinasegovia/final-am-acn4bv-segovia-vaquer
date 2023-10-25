@@ -48,9 +48,9 @@ public class ActivityJuego1 extends AppCompatActivity  {
             int valorCarta1=valor[pc1];
 
             Intent intent1 = new Intent ( ActivityJuego1.this, ActivityJuego2.class);
-            intent1.putExtra("posicion", pc1);
-            intent1.putExtra("id imagen", idCarta1);
-            intent1.putExtra("valor carta", valorCarta1);
+            intent1.putExtra("id", pc1);
+            intent1.putExtra("imagen", idCarta1);
+            intent1.putExtra("valor ", valorCarta1);
 
             startActivity(intent1);
 
