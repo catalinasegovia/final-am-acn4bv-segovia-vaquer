@@ -5,6 +5,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.widget.ImageView;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Button;
+import android.content.Intent;
+import android.view.View;
 
 public class ActivityJuego6 extends AppCompatActivity {
     private int puntajeJugador;
@@ -20,7 +23,20 @@ public class ActivityJuego6 extends AppCompatActivity {
 
         resultadoJuego();
 
+        Button buttonFin = findViewById(R.id.buttonFin);
+        buttonFin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(ActivityJuego6.this, MainActivity.class);
+                startActivity(intent);
+
+                finish();
+            }
+        });
     }
+
+
 
     public void resultadoJuego() {
         ConstraintLayout layout = findViewById(R.id.layout);
