@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent comenzar= new Intent (MainActivity.this, Activity2.class);
                 startActivity(comenzar);
+
             }
         });
     }
