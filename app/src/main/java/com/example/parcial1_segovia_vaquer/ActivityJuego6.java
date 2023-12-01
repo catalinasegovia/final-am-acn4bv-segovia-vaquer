@@ -46,11 +46,11 @@ public class ActivityJuego6 extends AppCompatActivity {
 
 
     public void resultadoJuego() {
-        if (puntajeJugador > puntajeIA ) {
+        if (puntajeJugador==21 || (puntajeJugador > puntajeIA && puntajeJugador <=21 ) ||( puntajeIA >21 && puntajeJugador <=21)) {
             ganoJugador();
-        } else if (puntajeIA > puntajeJugador || puntajeJugador > 21) {
+        } else if ((puntajeIA <= 21 && puntajeIA > puntajeJugador) || puntajeJugador > 21) {
             perdioJugador();
-        } else {
+        } else if (puntajeJugador == puntajeIA) {
             empataron();
         }
     }
