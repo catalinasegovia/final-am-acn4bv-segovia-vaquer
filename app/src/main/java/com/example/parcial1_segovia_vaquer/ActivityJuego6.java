@@ -2,12 +2,12 @@ package com.example.parcial1_segovia_vaquer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import android.widget.ImageView;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Button;
 import android.content.Intent;
 import android.view.View;
+
 
 
 public class ActivityJuego6 extends AppCompatActivity {
