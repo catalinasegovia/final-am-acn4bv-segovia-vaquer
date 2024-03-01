@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), Activity2.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(LoginActivity.this, "Falló el login",
