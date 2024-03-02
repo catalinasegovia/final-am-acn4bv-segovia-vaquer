@@ -39,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+
+
     public void onLoginButtonClick(View view){
         EditText emailImput = findViewById(R.id.txt_email);
         EditText passwordImput = findViewById(R.id.txt_password);
@@ -49,6 +51,10 @@ public class LoginActivity extends AppCompatActivity {
         this.login( email, password);
     }
 
+    public void onRegistroButtonClick(View view) {
+        Intent intent = new Intent(this, RegistroActivity.class);
+        startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
