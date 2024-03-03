@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void onLoginButtonClick(View view){
+
         login(view);
     }
 

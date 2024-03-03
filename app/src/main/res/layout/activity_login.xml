@@ -37,5 +37,18 @@
         android:text="Iniciar sesión"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_password" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_password"
+        />
+
+    <Button
+        android:id="@+id/btn_registro"
+        android:layout_width="167dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="94dp"
+        android:onClick="onRegistroButtonClick"
+        android:text="Registrarse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_password"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
