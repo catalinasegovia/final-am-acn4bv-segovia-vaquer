@@ -41,25 +41,35 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
 
-        FirebaseUser user = mAuth.getCurrentUser();
-            if(user != null){
-                String userId = user.getUid();
-
-                db.collection("users").get()
+                db.collection("users").whereEqualTo("email", email).get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()){
-                            for(QueryDocumentSnapshot document : task.getResult()){
-                                String id = document.getId();
-                                Object data = document.getData();
-                                //Log.i("firebase firestore"," id") + id + "d");
+                            QuerySnapshot query = task.getResult();
+
+                            if(!query.isEmpty()){
+                                for(QueryDocumentSnapshot document : query){
+                                    String email = document.getString("email");
+                                    String name = document.getString("name");
+                                    //Object data = document.getData();
+                                    //Log.i("firebase firestore"," id") + id + "d");
+                                }
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "email no encontrado",Toast.LENGTH_SHORT).show();
+                                }
+                            }else {
+                                Toast.makeText(LoginActivity.this, "error",Toast.LENGTH_SHORT).show();
+
                             }
-                        }
-                    }
+
+                            }
+
+
+
                 });
      }
-    }
+
 
 
 
@@ -89,3 +99,17 @@ public class LoginActivity extends AppCompatActivity {
 //        Log.i("firebase", "password: " + password);
 //        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 //        //startActivity(intent);
+
+/* esto arriba de db collection
+        FirebaseUser user = mAuth.getCurrentUser();
+                if(user != null){
+                String userId = user.getUid();
+
+
+                mAuth.signInWithEmailAndPassword(email,password)
+                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                         @Override
+                                 public void onComplete(@NonNull Task<AuthResult> task) {
+                                             if (task.isSuccessful()){
+                                     }
+                                      }*/

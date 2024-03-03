@@ -33,7 +33,7 @@ public class RegistroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_registro);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -54,29 +54,40 @@ public class RegistroActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            mAuth.signInWithEmailAndPassword(email,password)
+
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> signInTask) {
+                                    if (signInTask.isSuccessful()) {
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null){
-                                if(user.isEmailVerified()){
+
                                 String userId = user.getUid();
 
                                 Map<String, Object> usuario = new HashMap<>();
                                 usuario.put("name", name);
                                 usuario.put("email", email);
 
-                                db.collection("users").add(usuario).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        //Log.d("guardado" + documentReference.getId());
+                                db.collection("users").document(userId).set(usuario)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d("guardado" ," registro guardado ");
+                                            }
 
-                                    }
                                 })
                                         .addOnFailureListener(new OnFailureListener() {
                                              @Override
                                                public void onFailure(@NonNull Exception e) {
-                                                              Log.w("error" , e);
-                                                                  }
-                                                              });
+                                               Log.w("error" , e);
+
+                                             }
+
+                                        });
+                            }
+
 
                             //Mensaje de confirmacion
                             Log.d("Registro", "Registro exitoso");
@@ -84,16 +95,49 @@ public class RegistroActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
                             startActivity(intent);
-                                }
-                            }
+                            finish();
+
+
                         } else {
                             //Mensaje de error
                             Log.w("Registro", "Error de registro", task.getException());
                             Toast.makeText(RegistroActivity.this, "Error al crear usuario.",
                                     Toast.LENGTH_SHORT).show();
+                                        }
+                                }
+
+
+                });
                         }
                     }
+
+
                 });
-    }
+
     }
 
+    public void guardar(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+}
+
+
+
+
+
+/*@Override
+                                    public void onSuccess(Void void) {
+                                        Log.d("guardado" ," registro guardado ");
+
+                                    }*/
+
+
+
+
+/*@Override
+                                    public void onSuccess(Void void) {
+                                        Log.d("guardado" ," registro guardado ");
+
+                                    }*/
