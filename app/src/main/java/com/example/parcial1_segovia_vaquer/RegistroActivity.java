@@ -11,27 +11,32 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class RegistroActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
-    private DatabaseReference ref;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        ref= database.getReference();
+        db = FirebaseFirestore.getInstance();
+
     }
 
     public void registro(View view) {
@@ -52,15 +57,35 @@ public class RegistroActivity extends AppCompatActivity {
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null){
+                                if(user.isEmailVerified()){
                                 String userId = user.getUid();
-                                ref.child(userId).child(userId).child("email").setValue(email);
-                            }
+
+                                Map<String, Object> usuario = new HashMap<>();
+                                usuario.put("name", name);
+                                usuario.put("email", email);
+
+                                db.collection("users").add(usuario).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        //Log.d("guardado" + documentReference.getId());
+
+                                    }
+                                })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                             @Override
+                                               public void onFailure(@NonNull Exception e) {
+                                                              Log.w("error" , e);
+                                                                  }
+                                                              });
+
                             //Mensaje de confirmacion
                             Log.d("Registro", "Registro exitoso");
                             Toast.makeText(RegistroActivity.this, "Usuario creado exitosamente",
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
                             startActivity(intent);
+                                }
+                            }
                         } else {
                             //Mensaje de error
                             Log.w("Registro", "Error de registro", task.getException());
@@ -71,3 +96,4 @@ public class RegistroActivity extends AppCompatActivity {
                 });
     }
     }
+

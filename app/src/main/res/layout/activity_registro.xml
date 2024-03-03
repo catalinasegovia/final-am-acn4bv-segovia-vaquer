@@ -51,6 +51,8 @@
         android:layout_height="wrap_content"
         android:text="Guardar"
         android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
         />
 
 

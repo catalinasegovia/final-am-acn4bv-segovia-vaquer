@@ -14,21 +14,24 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.auth.FirebaseUser;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
-    private DatabaseReference ref;
+
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        ref= database.getReference();
+        db= FirebaseFirestore.getInstance();
     }
 
     public void login(View view) {
@@ -38,40 +41,26 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        FirebaseUser user = mAuth.getCurrentUser();
+            if(user != null){
+                String userId = user.getUid();
 
+                db.collection("users").get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUsar();
-                            if(user != null){
-                                String userId = user.GetUid();
-                                ref.child("usuario").child(userId).child("email").addListenerForSingleValueEvent(new ValueEventListener(){
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot){
-                                        if(dataSnapshot.exists()){
-                                            Intent intent = new Intent(getApplicationContext(), Activity2.class);
-                                            startActivity(intent);
-                                        } else{
-                                            Toast.makeText(LoginActivity.THIS, "No existe usuario con este correo", Toast.LENGTH_SHORT).show();
-                                        }
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                String id = document.getId();
+                                Object data = document.getData();
+                                //Log.i("firebase firestore"," id") + id + "d");
                             }
-
-                            @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError){
-                                        //errror
-                                    }
-
-                            });
-                            }
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Falló el login",
-                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+     }
     }
+
 
 
 
