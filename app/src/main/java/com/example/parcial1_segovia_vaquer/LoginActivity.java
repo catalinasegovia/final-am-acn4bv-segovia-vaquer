@@ -26,6 +26,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
+    String email ;
+    String password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         EditText emailInput = findViewById(R.id.txt_email);
         EditText passwordInput = findViewById(R.id.txt_password);
 
-        String email = emailInput.getText().toString();
-        String password = passwordInput.getText().toString();
+        email = emailInput.getText().toString();
+        password = passwordInput.getText().toString();
 
                 db.collection("user").whereEqualTo("email", email).get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -50,10 +53,8 @@ public class LoginActivity extends AppCompatActivity {
 
                             if(!query.isEmpty()){
                                 for(QueryDocumentSnapshot document : query){
-                                    String email = document.getString("email");
-                                    String name = document.getString("name");
-                                    //Object data = document.getData();
-                                    //Log.i("firebase firestore"," id") + id + "d");
+                                   email = document.getString("email");
+
                                 }
                                 } else {
                                     Toast.makeText(LoginActivity.this, "email no encontrado",Toast.LENGTH_SHORT).show();
@@ -112,4 +113,9 @@ public class LoginActivity extends AppCompatActivity {
                                  public void onComplete(@NonNull Task<AuthResult> task) {
                                              if (task.isSuccessful()){
                                      }
-                                      }*/
+                                      }
+
+
+                                      //name = document.getString("name");
+                                    //Object data = document.getData();
+                                    //Log.i("firebase firestore"," id") + id + "d");*/
