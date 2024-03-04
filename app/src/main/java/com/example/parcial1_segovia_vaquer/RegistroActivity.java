@@ -50,17 +50,12 @@ public class RegistroActivity extends AppCompatActivity {
         String password = passwordInput.getText().toString();
         String name = nameInput.getText().toString();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            mAuth.signInWithEmailAndPassword(email,password)
+        mAuth.signInWithEmailAndPassword(email,password)
 
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
-                                public void onComplete(@NonNull Task<AuthResult> signInTask) {
-                                    if (signInTask.isSuccessful()) {
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null){
@@ -71,7 +66,7 @@ public class RegistroActivity extends AppCompatActivity {
                                 usuario.put("name", name);
                                 usuario.put("email", email);
 
-                                db.collection("users").document(userId).set(usuario)
+                                db.collection("user").document(userId).set(usuario)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
@@ -95,8 +90,11 @@ public class RegistroActivity extends AppCompatActivity {
                             Toast.makeText(RegistroActivity.this, "Usuario creado exitosamente",
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
+
                             startActivity(intent);
-                            finish();
+
+                            Intent intentEmail = new Intent(RegistroActivity.this, ActivityJuego6.class);
+                            intentEmail.putExtra("email", email);
 
 
                         } else {
@@ -109,11 +107,7 @@ public class RegistroActivity extends AppCompatActivity {
 
 
                 });
-                        }
-                    }
 
-
-                });
 
     }
 
@@ -142,4 +136,8 @@ public class RegistroActivity extends AppCompatActivity {
                                     public void onSuccess(Void void) {
                                         Log.d("guardado" ," registro guardado ");
 
-                                    }*/
+                                    } mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {*/

@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
 
-                db.collection("users").whereEqualTo("email", email).get()
+                db.collection("user").whereEqualTo("email", email).get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
