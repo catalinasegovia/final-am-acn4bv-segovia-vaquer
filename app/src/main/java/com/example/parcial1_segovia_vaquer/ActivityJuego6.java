@@ -27,7 +27,7 @@ public class ActivityJuego6 extends AppCompatActivity {
 
     TextView textView1;
     TextView textView2;
-
+    String userId;
     String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class ActivityJuego6 extends AppCompatActivity {
         setContentView(R.layout.activity_juego6);
 
         email = getIntent().getStringExtra("email");
+        userId = getIntent().getStringExtra("userId");
 
         puntajeJugador = getIntent().getIntExtra("puntajeJugador",0);
         puntajeIA = getIntent().getIntExtra("puntajeIA",0);
@@ -44,7 +45,7 @@ public class ActivityJuego6 extends AppCompatActivity {
         textView2 = findViewById(R.id.textView2);
         resultadoJuego();
 
-        guardarPuntajeBD(email, puntajeJugador);
+        guardarPuntajeBD(puntajeJugador);
 
         Button buttonFin = findViewById(R.id.buttonFin);
         buttonFin.setOnClickListener(new View.OnClickListener() {
@@ -93,28 +94,27 @@ public class ActivityJuego6 extends AppCompatActivity {
 
     }
 
-    public void guardarPuntajeBD(String email,int puntajeJugador){
+    public void guardarPuntajeBD(int puntajeJugador){
         db = FirebaseFirestore.getInstance();
 
-        Map<String,Object> puntaje = new HashMap<>();
-        //puntaje.put("email", email);
-        puntaje.put("puntaje",puntajeJugador);
+        Map<String,Object> updatePuntaje = new HashMap<>();
+        //ACA PODEMOS AGREGAR TMB EL UPDATE DEL RANKING CAPAZ
+        updatePuntaje.put("puntaje",puntajeJugador);
+
 
         db.collection("user")
-                .document(email)
-                .set(puntaje).addOnSuccessListener(new OnSuccessListener<Void>() {
+                .document(userId)
+                .update(updatePuntaje).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d("puntaje","Puntaje Guardado en base de datos");
-
-                        //Toast.makeText(ActivityJuego6.this, "Puntaje guardado base de datos", Toast.LENGTH_SHORT).show();
 
                     }
                 }) .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("error puntaje", "Error para guardar puntaje", e);
-                        //Toast.makeText(ActivityJuego6.this, "Error de puntaje base de datos", Toast.LENGTH_SHORT).show();
+
 
                     }
                 });

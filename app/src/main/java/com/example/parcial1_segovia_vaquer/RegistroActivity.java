@@ -50,57 +50,54 @@ public class RegistroActivity extends AppCompatActivity {
         String password = passwordInput.getText().toString();
         String name = nameInput.getText().toString();
 
-        mAuth.signInWithEmailAndPassword(email,password)
 
+        //mAuth.signInWithEmailAndPassword(email,password) Lo dejo aca por si no funciona create User
+        mAuth.createUserWithEmailAndPassword(email,password)
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            if (user != null){
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                   if (user != null){
 
                                 String userId = user.getUid();
 
                                 Map<String, Object> usuario = new HashMap<>();
                                 usuario.put("name", name);
                                 usuario.put("email", email);
+                                usuario.put("puntaje", 0);
+                                usuario.put("ranking", 0);
 
                                 db.collection("user").document(userId).set(usuario)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-                                                Log.d("guardado" ," registro guardado ");
+
+                                                //Mensaje de confirmacion
+                                                Log.d("Registro", "Registro exitoso");
+                                                Toast.makeText(RegistroActivity.this, "Usuario creado exitosamente",
+                                                        Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
+                                                startActivity(intent);
                                             }
 
                                 })
                                         .addOnFailureListener(new OnFailureListener() {
                                              @Override
                                                public void onFailure(@NonNull Exception e) {
-                                               Log.w("error" , e);
+                                                 Log.w("Registro", "Error con base de datos", e);
+                                                 Toast.makeText(RegistroActivity.this, "Error",
+                                                         Toast.LENGTH_SHORT).show();
 
                                              }
 
                                         });
                             }
 
-
-                            //Mensaje de confirmacion
-                            Log.d("Registro", "Registro exitoso");
-                            Toast.makeText(RegistroActivity.this, "Usuario creado exitosamente",
-                                    Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
-
-                            startActivity(intent);
-
-                            Intent intentEmail = new Intent(RegistroActivity.this, ActivityJuego6.class);
-                            intentEmail.putExtra("email", email);
-
-
                         } else {
                             //Mensaje de error
                             Log.w("Registro", "Error de registro", task.getException());
-                            Toast.makeText(RegistroActivity.this, "Error al crear usuario.",
+                            Toast.makeText(RegistroActivity.this, "Error con el registro de usuario",
                                     Toast.LENGTH_SHORT).show();
                                         }
                                 }
