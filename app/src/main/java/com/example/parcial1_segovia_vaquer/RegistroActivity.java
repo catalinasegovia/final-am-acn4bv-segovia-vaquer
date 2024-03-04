@@ -37,6 +37,7 @@ public class RegistroActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+
     }
 
     public void registro(View view) {
@@ -117,6 +118,7 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
     public void guardar(View view){
+        registro(view);
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
