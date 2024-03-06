@@ -1,4 +1,4 @@
-# parcial-1-am-acn4bv-segovia-vaquer
+# final-am-acn4bv-segovia-vaquer
 
 Link a mockup
 https://pr.to/GXCW0L/

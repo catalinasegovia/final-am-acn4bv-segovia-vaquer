@@ -98,7 +98,7 @@ public class ActivityJuego6 extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         Map<String,Object> updatePuntaje = new HashMap<>();
-        //ACA PODEMOS AGREGAR TMB EL UPDATE DEL RANKING CAPAZ
+
         updatePuntaje.put("puntaje",puntajeJugador);
 
 

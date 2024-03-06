@@ -87,35 +87,3 @@ public class LoginActivity extends AppCompatActivity {
 
 
 }
-
-//EditText emailImput = findViewById(R.id.txt_email);
-//        EditText passwordImput = findViewById(R.id.txt_password);
-//
-//        String email = emailImput.getText().toString();
-//        String password = passwordImput.getText().toString();
-//
-//        this.
-//public void login(String email, String password) {
-//        Log.i("firebase", "email: " + email);
-//        Log.i("firebase", "password: " + password);
-//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//        //startActivity(intent);
-
-/* esto arriba de db collection
-        FirebaseUser user = mAuth.getCurrentUser();
-                if(user != null){
-                String userId = user.getUid();
-
-
-                mAuth.signInWithEmailAndPassword(email,password)
-                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                         @Override
-                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                             if (task.isSuccessful()){
-                                     }
-                                      }
-
-
-                                      //name = document.getString("name");
-                                    //Object data = document.getData();
-                                    //Log.i("firebase firestore"," id") + id + "d");*/

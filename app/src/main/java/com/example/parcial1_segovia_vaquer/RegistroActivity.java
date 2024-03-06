@@ -51,7 +51,6 @@ public class RegistroActivity extends AppCompatActivity {
         String name = nameInput.getText().toString();
 
 
-        //mAuth.signInWithEmailAndPassword(email,password) Lo dejo aca por si no funciona create User
         mAuth.createUserWithEmailAndPassword(email,password)
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -66,14 +65,13 @@ public class RegistroActivity extends AppCompatActivity {
                                 usuario.put("name", name);
                                 usuario.put("email", email);
                                 usuario.put("puntaje", 0);
-                                usuario.put("ranking", 0);
+                                
 
                                 db.collection("user").document(userId).set(usuario)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
 
-                                                //Mensaje de confirmacion
                                                 Log.d("Registro", "Registro exitoso");
                                                 Toast.makeText(RegistroActivity.this, "Usuario creado exitosamente",
                                                         Toast.LENGTH_SHORT).show();
@@ -95,7 +93,7 @@ public class RegistroActivity extends AppCompatActivity {
                             }
 
                         } else {
-                            //Mensaje de error
+
                             Log.w("Registro", "Error de registro", task.getException());
                             Toast.makeText(RegistroActivity.this, "Error con el registro de usuario",
                                     Toast.LENGTH_SHORT).show();
@@ -119,22 +117,3 @@ public class RegistroActivity extends AppCompatActivity {
 
 
 
-
-/*@Override
-                                    public void onSuccess(Void void) {
-                                        Log.d("guardado" ," registro guardado ");
-
-                                    }*/
-
-
-
-
-/*@Override
-                                    public void onSuccess(Void void) {
-                                        Log.d("guardado" ," registro guardado ");
-
-                                    } mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {*/
