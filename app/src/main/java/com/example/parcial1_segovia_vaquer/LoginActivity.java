@@ -52,10 +52,10 @@ public class LoginActivity extends AppCompatActivity {
                             QuerySnapshot query = task.getResult();
 
                             if(!query.isEmpty()){
-                                for(QueryDocumentSnapshot document : query){
-                                   email = document.getString("email");
+                                Intent intent = new Intent(LoginActivity.this, Activity2.class);
+                                startActivity(intent);
 
-                                }
+
                                 } else {
                                     Toast.makeText(LoginActivity.this, "email no encontrado",Toast.LENGTH_SHORT).show();
                                 }
@@ -63,8 +63,8 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "error",Toast.LENGTH_SHORT).show();
 
                             }
+                    }
 
-                            }
 
 
 
